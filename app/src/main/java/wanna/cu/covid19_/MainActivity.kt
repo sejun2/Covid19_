@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_sido.*
 import wanna.cu.covid19_.data.DataContract
 import wanna.cu.covid19_.data.DataPresenter
+import wanna.cu.covid19_.mainFragments.SexFragment
 import wanna.cu.covid19_.mainFragments.SidoFragment
 import wanna.cu.covid19_.subActivity.GoodFoodActivity
 import wanna.cu.covid19_.subActivity.PreventionOfInfectActivity
@@ -31,24 +32,44 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         setSupportActionBar(toolbar)
-        val toggle :ActionBarDrawerToggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.nav_close, R.string.nav_open)
+        val toggle: ActionBarDrawerToggle = ActionBarDrawerToggle(
+            this,
+            drawer_layout,
+            toolbar,
+            R.string.nav_close,
+            R.string.nav_open
+        )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SidoFragment.newInstance()).commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, SidoFragment.newInstance()).commit()
 
 
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.nav_sido -> Toast.makeText(this, "nav_sido selected", Toast.LENGTH_LONG).show()
-            R.id.nav_gender -> Toast.makeText(this, "nav_gender selected", Toast.LENGTH_LONG).show()
+        when (item.itemId) {
+            R.id.nav_sido -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SidoFragment.newInstance()).commit()
+                toolbar.title = "시 도별 발생 현황"
+            }
+            R.id.nav_gender -> {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, SexFragment.newInstance()).commit()
+                toolbar.title = "연령 및 성별 발생 현황"
+            }
             R.id.nav_map -> Toast.makeText(this, "nav_map selected", Toast.LENGTH_LONG).show()
             R.id.nav_whatIsCorvid -> startActivity(Intent(this, WhatIsCorvidActivity::class.java))
             R.id.nav_goodFood -> startActivity(Intent(this, GoodFoodActivity::class.java))
-            R.id.nav_preventionOfInfect -> startActivity(Intent(this, PreventionOfInfectActivity::class.java))
+            R.id.nav_preventionOfInfect -> startActivity(
+                Intent(
+                    this,
+                    PreventionOfInfectActivity::class.java
+                )
+            )
             else -> return false
         }
         drawer_layout.closeDrawer(GravityCompat.START)

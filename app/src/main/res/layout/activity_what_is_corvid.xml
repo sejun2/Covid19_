@@ -13,5 +13,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:id="@+id/toolbar_whatIsCorvid"
         app:layout_constraintTop_toTopOf="parent"
+        app:title="코로나란?"
         ></androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,5 +13,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:id="@+id/toolbar_preventionOfInfect"
         app:layout_constraintTop_toTopOf="parent"
+        app:title="감염 예방 수칙"
         ></androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>

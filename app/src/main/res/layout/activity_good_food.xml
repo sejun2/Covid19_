@@ -13,5 +13,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:id="@+id/toolbar_goodfood"
         app:layout_constraintTop_toTopOf="parent"
+        app:title="코로나에 좋은 음식"
         ></androidx.appcompat.widget.Toolbar>
 </androidx.constraintlayout.widget.ConstraintLayout>
