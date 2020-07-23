@@ -32,8 +32,8 @@ data class Sido(
     val incDec:Int,
     @SerializedName("isolClearCnt")
     val isolClearCnt:Int,
-    @SerializedName("isollngCnt")
-    val isollngCnt:Int,
+    @SerializedName("isolIngCnt")
+    val isolIngCnt:Int,
     @SerializedName("stdDay")
     val stdDay:String
 )

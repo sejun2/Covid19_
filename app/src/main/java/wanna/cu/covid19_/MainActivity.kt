@@ -55,16 +55,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-  /*  //DataContract implementation
-    override fun onSuccess(p1:String?) {
-        Toast.makeText(this, "onsuccess : $p1", Toast.LENGTH_LONG).show()
-        textView_sidoFragment.setText(p1.toString())
-    }
-
-    override fun onError(p1:String?) {
-        Toast.makeText(this, "onerror : ${p1}", Toast.LENGTH_LONG).show()
-    }
-*/
-
 
 }

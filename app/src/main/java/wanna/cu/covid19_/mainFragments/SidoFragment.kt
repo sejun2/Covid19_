@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
@@ -54,19 +55,59 @@ class SidoFragment : Fragment(), DataContract.FragmentView {
             }
     }
 
-/////스피너설정////////
-    override fun setSidos(tmp : List<Sido>) {
+    fun setCnts() {
+        val tmp = spinner_sidoFragment.selectedItem.toString()
+        val x = getSpecificSido(tmp)
+        if (x != null) {
+            defCnt_textView_sidoFragment.text = x.defCnt.toString()
+            deathCnt_textView_sidoFragment.text = x.deathCnt.toString()
+            isollingClearCnt_textView_sidoFragment.text = x.isolClearCnt.toString()
+            isollingCnt_textView_sidoFragment.text = x.isolIngCnt.toString()
+        }
+    }
+
+    fun getSpecificSido(name: String): Sido? {
+        var tmp: Sido? = null
+        sidos.forEach {
+            if (it.gubun.equals(name)) {
+                tmp = it
+            }
+        }
+        return tmp
+    }
+
+    /////스피너설정////////
+    override fun setSidos(tmp: List<Sido>) {
         sidos = tmp as ArrayList<Sido>
         initSpinner(sidos)
     }
-    fun getCities(tmp : List<Sido>){
+
+    fun getCities(tmp: List<Sido>) {
         tmp.forEach({
             cities.add(it.gubun)
         })
     }
-        fun initSpinner(tmp : List<Sido>){
-            getCities(tmp)
-            spinner_sidoFragment.adapter = context?.let { ArrayAdapter<String>(it, android.R.layout.simple_spinner_dropdown_item, cities) }
+
+    fun initSpinner(tmp: List<Sido>) {
+        getCities(tmp)
+        spinner_sidoFragment.adapter = context?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_dropdown_item,
+                cities
+            )
+        }
+        spinner_sidoFragment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                setCnts()
+            }
+
+        }
+
     }
 ///////////////////////////////////////
 }

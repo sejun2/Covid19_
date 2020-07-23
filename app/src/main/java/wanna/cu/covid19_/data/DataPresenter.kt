@@ -19,10 +19,12 @@ import java.net.URLEncoder
 import java.time.LocalDate
 import javax.xml.bind.JAXBContextFactory
 
-const val TAG = "디버깅"
+
 
 class DataPresenter private constructor(val view: DataContract.FragmentView) : DataContract.Presenter {
+
     companion object {
+        const val TAG = "디버깅"
         private var instance: DataPresenter? = null
 
         @JvmStatic
@@ -55,7 +57,7 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
             pageNo = 1,
             numOfRows = 10,
             startCreateDt = getToday(),
-            endCreateDt = "20200722"
+            endCreateDt = getToday()
         )
         call.enqueue(object : Callback<Top> {
             override fun onFailure(call: Call<Top>, t: Throwable) {
@@ -92,16 +94,6 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
     return sb.toString()
     }
 
-    fun getCities(): List<String> {
-        val tmp = arrayListOf<String>()
-        if (!cities.isEmpty()) {
-            Log.d(TAG, cities.toString())
-            cities.forEach {
-                tmp.add(it.gubun)
-            }
-        }
-        return tmp
-    }
 
 
 
