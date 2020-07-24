@@ -6,9 +6,11 @@ import android.widget.ArrayAdapter
 interface DataContract{
 
     interface Presenter{
-
+        fun getSidosFromSidoModel()
+        fun setSidosToSidoFragment(): List<Sido>
     }
     interface FragmentView{
         fun setSidos(tmp : List<Sido>)
+        fun initSpinner(tmp : List<Sido>)
     }
 }

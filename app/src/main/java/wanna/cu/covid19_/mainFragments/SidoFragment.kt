@@ -2,6 +2,7 @@ package wanna.cu.covid19_.mainFragments
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,7 +18,8 @@ import wanna.cu.covid19_.data.DataPresenter
 import wanna.cu.covid19_.data.Sido
 
 
-class SidoFragment : Fragment(), DataContract.FragmentView {
+class SidoFragment private constructor() : Fragment(), DataContract.FragmentView {
+
     val dataPresenter by lazy {
         DataPresenter.newInstance(this)
     }
@@ -40,12 +42,13 @@ class SidoFragment : Fragment(), DataContract.FragmentView {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dataPresenter.doRetrofit()
 
+        dataPresenter.getSidosFromSidoModel()
 
-    }
+}
 
     companion object {
+        const val TAG = "SidoFragment 디버깅"
         private var instance: SidoFragment? = null
 
         @JvmStatic
@@ -78,17 +81,20 @@ class SidoFragment : Fragment(), DataContract.FragmentView {
 
     /////스피너설정////////
     override fun setSidos(tmp: List<Sido>) {
+        Log.d(TAG, "setSidos() : ${tmp.toString()}")
         sidos = tmp as ArrayList<Sido>
         initSpinner(sidos)
     }
 
     fun getCities(tmp: List<Sido>) {
+        Log.d(TAG, "getCities() : ${tmp.toString()}")
         tmp.forEach({
             cities.add(it.gubun)
         })
     }
 
-    fun initSpinner(tmp: List<Sido>) {
+    override fun initSpinner(tmp: List<Sido>) {
+        Log.d(TAG, "initSpinner() : ${tmp.toString()}")
         getCities(tmp)
         spinner_sidoFragment.adapter = context?.let {
             ArrayAdapter<String>(

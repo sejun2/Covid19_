@@ -21,8 +21,10 @@ import javax.xml.bind.JAXBContextFactory
 
 
 
-class DataPresenter private constructor(val view: DataContract.FragmentView) : DataContract.Presenter {
-
+class DataPresenter private constructor(val view: DataContract.FragmentView) : DataContract.Presenter, SidoModel.OnDataFetchedListener{
+    var sidos: ArrayList<Sido> = ArrayList<Sido>()
+    var cities = ArrayList<String>()
+    val sidoModel = SidoModel.newInstance(this)
     companion object {
         const val TAG = "디버깅"
         private var instance: DataPresenter? = null
@@ -34,68 +36,37 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
             }
     }
 
-    var cities: ArrayList<Sido> = ArrayList<Sido>()
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun doRetrofit() {
-        val privateKey = URLDecoder.decode(
-            "EucTlJ77vKNrNliw9L6V8tLn8gQuFNogCmvh%2FlUQ7c5Rnstk0AL%2BTFMIrGFYEwbIMJE9Nw6%2BRU09ydd40wfKeg%3D%3D",
-            "utf-8"
-        )
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://openapi.data.go.kr/openapi/service/rest/Covid19/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val service = retrofit.create(RetrofitService::class.java)
-
-        val call = service.getSido(
-            serviceKey = privateKey,
-            type = "json",
-            pageNo = 1,
-            numOfRows = 10,
-            startCreateDt = getToday(),
-            endCreateDt = getToday()
-        )
-        call.enqueue(object : Callback<Top> {
-            override fun onFailure(call: Call<Top>, t: Throwable) {
-            }
-
-            override fun onResponse(
-                call: Call<Top>,
-                response: Response<Top>
-            ) {
-                cities = response.body()?.response?.body?.items?.sido as ArrayList<Sido>
-                clarifyCities(cities)
-                view.setSidos(cities)
-            }
-
-        })
-    }
 
     fun clarifyCities(tmp : ArrayList<Sido>){
         if(!tmp.isEmpty()){
            tmp.removeIf { it.gubun.equals("검역") || it.gubun.equals("합계") }
         }
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getToday(): String {
-        var now = LocalDate.now()
-        val tmp = now.toString().split('-')
-
-        val sb = StringBuilder()
-        tmp.forEach() {
-        sb.append(it)
+    override fun getSidosFromSidoModel() {
+        sidoModel.doRetrofit()
     }
 
-    Log.d(TAG, sb.toString())
-    return sb.toString()
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun setSidosToSidoFragment() : List<Sido>{
+        view.setSidos(sidos)
+        return sidos
     }
+    //SidoModel dataFetchListener
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onFetched() {
+        sidos = sidoModel.sidos
+        Log.d(TAG, "sidos = ${sidos}")
+        setSidosToSidoFragment()
+}
 
-
-
+    override fun onFailed() {
+        TODO("Not yet implemented")
+    }
 
 
 }
