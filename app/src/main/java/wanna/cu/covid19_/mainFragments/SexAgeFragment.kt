@@ -69,10 +69,13 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
     }
 
     fun setCnts() {
-        val tmp = spinner_sidoFragment.selectedItem.toString()
+        val tmp = spinner_sexAgeFragment.selectedItem.toString()
         val x = getSpecificSexAge(tmp)
         if (x != null) {
-            // 뷰 설정
+            confCaseRate_textView_sexAgeFragment.text = x.confCaseRate+"%"
+            confCase_textView_sexAgeFragment.text = x.confCase+"명"
+            deathCnt_textView_sexAgeFragment.text = "${x.death}명"
+            deathRate_textView_sexAgeFragment.text = x.deathRate+"%"
         }
     }
 
@@ -106,7 +109,7 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
             }
 
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                //setCnts()
+                setCnts()
             }
 
         }
