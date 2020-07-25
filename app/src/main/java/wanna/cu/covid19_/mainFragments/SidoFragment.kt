@@ -10,12 +10,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.FragmentManager
 import kotlinx.android.synthetic.main.fragment_sido.*
 import wanna.cu.covid19_.R
-import wanna.cu.covid19_.data.DataContract
-import wanna.cu.covid19_.data.DataPresenter
-import wanna.cu.covid19_.data.Sido
+import wanna.cu.covid19_.sidoFragmentDatas.DataContract
+import wanna.cu.covid19_.sidoFragmentDatas.DataPresenter
+import wanna.cu.covid19_.sidoFragmentDatas.Sido
 
 
 class SidoFragment private constructor() : Fragment(), DataContract.FragmentView {
@@ -30,7 +29,10 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
         super.onCreate(savedInstanceState)
 
     }
-
+    fun clearLists(){
+        sidos = ArrayList<Sido>()
+        cities = ArrayList<String>()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,7 +44,7 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        clearLists()
         dataPresenter.getSidosFromSidoModel()
 
 }

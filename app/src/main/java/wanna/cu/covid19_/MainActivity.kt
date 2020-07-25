@@ -5,18 +5,13 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
-import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_sido.*
-import wanna.cu.covid19_.data.DataContract
-import wanna.cu.covid19_.data.DataPresenter
-import wanna.cu.covid19_.mainFragments.SexFragment
+import wanna.cu.covid19_.mainFragments.SexAgeFragment
 import wanna.cu.covid19_.mainFragments.SidoFragment
 import wanna.cu.covid19_.subActivity.GoodFoodActivity
 import wanna.cu.covid19_.subActivity.PreventionOfInfectActivity
@@ -58,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_gender -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, SexFragment.newInstance()).commit()
+                    .replace(R.id.fragment_container, SexAgeFragment.newInstance()).commit()
                 toolbar.title = "연령 및 성별 발생 현황"
             }
             R.id.nav_map -> Toast.makeText(this, "nav_map selected", Toast.LENGTH_LONG).show()

@@ -1,7 +1,4 @@
-package wanna.cu.covid19_.data
-
-import android.content.Context
-import android.widget.ArrayAdapter
+package wanna.cu.covid19_.sidoFragmentDatas
 
 interface DataContract{
 

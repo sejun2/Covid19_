@@ -1,4 +1,4 @@
-package wanna.cu.covid19_.data
+package wanna.cu.covid19_.sexFragmentDatas
 
 import android.os.Build
 import android.util.Log
@@ -8,40 +8,39 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import wanna.cu.covid19_.sidoFragmentDatas.*
 import java.lang.StringBuilder
 import java.net.URLDecoder
 import java.time.LocalDate
 
-class SidoModel private constructor(val onDataFetchedListener: OnDataFetchedListener) {
-    var sidos: ArrayList<Sido> = ArrayList<Sido>()
+class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAgeDataFetchedListener){
+    var sexAges = ArrayList<SexAge>()
 
     companion object {
-        const val TAG = "SidoMoel 디버깅"
-        private var instance: SidoModel? = null
+        const val TAG = "SexAgeModel 디버깅"
+        private var instance: SexAgeModel? = null
 
         @JvmStatic
-        fun newInstance(onDataFetchedListener: OnDataFetchedListener) =
+        fun newInstance(onSexDataFetchedListener: OnSexAgeDataFetchedListener) =
             instance ?: synchronized(this) {
-                instance ?: SidoModel(onDataFetchedListener = onDataFetchedListener).also {
+                instance ?: SexAgeModel(onSexDataFetchedListener).also {
                     instance = it
                 }
             }
 
     }
-
-    //도시정보를 받아와서 sidos에 저장
     @RequiresApi(Build.VERSION_CODES.O)
-    fun doRetrofit() {
+    fun doSexAgeRetrofit(){
         val privateKey = URLDecoder.decode(
             "EucTlJ77vKNrNliw9L6V8tLn8gQuFNogCmvh%2FlUQ7c5Rnstk0AL%2BTFMIrGFYEwbIMJE9Nw6%2BRU09ydd40wfKeg%3D%3D",
             "utf-8"
         )
 
-        val retrofit = Retrofit.Builder()
+        val sexAgeRetrofit = Retrofit.Builder()
             .baseUrl("http://openapi.data.go.kr/openapi/service/rest/Covid19/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val service = retrofit.create(RetrofitService::class.java)
+        val service = sexAgeRetrofit.create(SexAgeRetrofitService::class.java)
 
         val call = service.getSido(
             serviceKey = privateKey,
@@ -51,24 +50,23 @@ class SidoModel private constructor(val onDataFetchedListener: OnDataFetchedList
             startCreateDt = getToday(),
             endCreateDt = getToday()
         )
-        call.enqueue(object : Callback<Top> {
-            override fun onFailure(call: Call<Top>, t: Throwable) {
+        call.enqueue(object : Callback<SexAgeTop> {
+            override fun onFailure(call: Call<SexAgeTop>, t: Throwable) {
                 Log.d(TAG, "onFailure called")
-                onDataFetchedListener.onFailed()
+                onSexAgeDataFetchedListener.onFailed()
             }
 
             override fun onResponse(
-                call: Call<Top>,
-                response: Response<Top>
+                call: Call<SexAgeTop>,
+                response: Response<SexAgeTop>
             ) {
-                Log.d(TAG, "onResponse called, sidos = ${sidos}")
-                sidos = response.body()?.response?.body?.items?.sido as ArrayList<Sido>
-                onDataFetchedListener.onFetched()
+                Log.d(TAG, "onResponse called, sexAges = ${sexAges}")
+                sexAges = response.body()?.sexResponse?.sexBody?.sexItems?.item as ArrayList<SexAge>
+                onSexAgeDataFetchedListener.onFetched()
             }
 
         })
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     fun getToday(): String {
         var now = LocalDate.now()
@@ -82,8 +80,7 @@ class SidoModel private constructor(val onDataFetchedListener: OnDataFetchedList
         Log.d(DataPresenter.TAG, sb.toString())
         return sb.toString()
     }
-
-    interface OnDataFetchedListener {
+    interface OnSexAgeDataFetchedListener{
         fun onFetched()
 
         fun onFailed()

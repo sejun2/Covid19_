@@ -18,7 +18,9 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginHorizontal="8dp"></Spinner>
+            android:layout_marginHorizontal="8dp"
+            android:tooltipText="선택하기"
+            ></Spinner>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

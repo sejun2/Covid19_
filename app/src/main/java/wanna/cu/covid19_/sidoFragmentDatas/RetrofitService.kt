@@ -1,9 +1,7 @@
-package wanna.cu.covid19_.data
+package wanna.cu.covid19_.sidoFragmentDatas
 
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitService {

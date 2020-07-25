@@ -1,6 +1,5 @@
-package wanna.cu.covid19_.data
+package wanna.cu.covid19_.sidoFragmentDatas
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 data class Top(
     @SerializedName("response")
