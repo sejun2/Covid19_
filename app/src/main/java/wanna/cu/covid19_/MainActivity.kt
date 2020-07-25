@@ -13,9 +13,9 @@ import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import wanna.cu.covid19_.mainFragments.SexAgeFragment
 import wanna.cu.covid19_.mainFragments.SidoFragment
-import wanna.cu.covid19_.subActivity.GoodFoodActivity
-import wanna.cu.covid19_.subActivity.PreventionOfInfectActivity
-import wanna.cu.covid19_.subActivity.WhatIsCorvidActivity
+import wanna.cu.covid19_.subActivity.qurantineSystem.quarantineSystemActivity
+import wanna.cu.covid19_.subActivity.preventionOfInfect.PreventionOfInfectActivity
+import wanna.cu.covid19_.subActivity.whatiscovid.WhatIsCovidActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -57,8 +57,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 toolbar.title = "연령 및 성별 발생 현황"
             }
             R.id.nav_map -> Toast.makeText(this, "nav_map selected", Toast.LENGTH_LONG).show()
-            R.id.nav_whatIsCorvid -> startActivity(Intent(this, WhatIsCorvidActivity::class.java))
-            R.id.nav_goodFood -> startActivity(Intent(this, GoodFoodActivity::class.java))
+            R.id.nav_whatIsCorvid -> startActivity(Intent(this, WhatIsCovidActivity::class.java))
+            R.id.nav_quarantineSystem -> startActivity(
+                Intent(
+                    this,
+                    quarantineSystemActivity::class.java
+                )
+            )
             R.id.nav_preventionOfInfect -> startActivity(
                 Intent(
                     this,

@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".subActivity.WhatIsCorvidActivity">
+    tools:context=".subActivity.whatiscovid.WhatIsCovidActivity">
     <androidx.appcompat.widget.Toolbar
         android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:id="@+id/toolbar_whatIsCorvid"
+        android:id="@+id/toolbar_whatIsCovid"
         app:layout_constraintTop_toTopOf="parent"
         app:title="코로나란?"
         ></androidx.appcompat.widget.Toolbar>
+
+    <WebView
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_whatIsCovid"
+        android:id="@+id/webView_whatIsCovid"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

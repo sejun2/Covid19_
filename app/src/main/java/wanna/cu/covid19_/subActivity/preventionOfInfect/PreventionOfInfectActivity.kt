@@ -1,4 +1,4 @@
-package wanna.cu.covid19_.subActivity
+package wanna.cu.covid19_.subActivity.preventionOfInfect
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +13,9 @@ class PreventionOfInfectActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar_preventionOfInfect)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        
+        toolbar_preventionOfInfect.title = "감염 예방 수칙"
+        webView_preventionOfInfect.loadUrl("http://ncov.mohw.go.kr/baroView4.do?brdId=4&brdGubun=44");
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
