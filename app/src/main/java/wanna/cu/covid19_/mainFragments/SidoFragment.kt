@@ -1,5 +1,6 @@
 package wanna.cu.covid19_.mainFragments
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +11,11 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
+import cl.jesualex.stooltip.Position
+import cl.jesualex.stooltip.Tooltip
 import kotlinx.android.synthetic.main.fragment_sido.*
+import org.angmarch.views.NiceSpinner
+import org.angmarch.views.OnSpinnerItemSelectedListener
 import wanna.cu.covid19_.R
 import wanna.cu.covid19_.sidoFragmentDatas.DataContract
 import wanna.cu.covid19_.sidoFragmentDatas.DataPresenter
@@ -46,6 +51,14 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
         super.onViewCreated(view, savedInstanceState)
         clearLists()
         dataPresenter.getSidosFromSidoModel()
+        Tooltip.on(niceSpinner_sidoFragment)
+            .text(R.string.tooltip_spinner)
+            .color(resources.getColor(android.R.color.black))
+            .border(Color.BLACK, 2f)
+            .clickToHide(true)
+            .corner(5)
+            .position(Position.BOTTOM)
+            .show(3000)
 
 }
 
@@ -61,7 +74,7 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
     }
 
     fun setCnts() {
-        val tmp = spinner_sidoFragment.selectedItem.toString()
+        val tmp = niceSpinner_sidoFragment.selectedItem.toString()
         val x = getSpecificSido(tmp)
         if (x != null) {
             defCnt_textView_sidoFragment.text = x.defCnt.toString()
@@ -94,8 +107,26 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
             cities.add(it.gubun)
         })
     }
+    override fun initSpinner(tmp: List<Sido>){
+        Log.d(TAG, "initNiceSpinner() : ${tmp.toString()}")
+        getCities(tmp)
+        niceSpinner_sidoFragment.attachDataSource(cities)
 
-    override fun initSpinner(tmp: List<Sido>) {
+        niceSpinner_sidoFragment.setOnSpinnerItemSelectedListener(object : OnSpinnerItemSelectedListener{
+            override fun onItemSelected(
+                parent: NiceSpinner?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                setCnts()
+            }
+
+        })
+
+
+    }
+   /* override fun initSpinner(tmp: List<Sido>) {
         Log.d(TAG, "initSpinner() : ${tmp.toString()}")
         getCities(tmp)
         spinner_sidoFragment.adapter = context?.let {
@@ -117,5 +148,16 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
         }
 
     }
+    fun setCnts() {
+        val tmp = spinner 아이템 세팅
+        val x = getSpecificSido(tmp)
+        if (x != null) {
+            defCnt_textView_sidoFragment.text = x.defCnt.toString()
+            deathCnt_textView_sidoFragment.text = x.deathCnt.toString()
+            isollingClearCnt_textView_sidoFragment.text = x.isolClearCnt.toString()
+            isollingCnt_textView_sidoFragment.text = x.isolIngCnt.toString()
+        }
+    }
+    */
 ///////////////////////////////////////
 }

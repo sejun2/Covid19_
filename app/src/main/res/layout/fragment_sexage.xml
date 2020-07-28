@@ -4,14 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".mainFragments.SexAgeFragment">
+    tools:context=".mainFragments.SexAgeFragment"
+    android:background="@android:color/white"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+    <org.angmarch.views.NiceSpinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:id="@+id/niceSpinner_sexAgeFragment"
+        />
 
-        <androidx.appcompat.widget.AppCompatSpinner
+       <!-- <androidx.appcompat.widget.AppCompatSpinner
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
            android:layout_gravity="end"
@@ -20,7 +28,7 @@
             android:id="@+id/spinner_sexAgeFragment"
             >
 
-        </androidx.appcompat.widget.AppCompatSpinner>
+        </androidx.appcompat.widget.AppCompatSpinner>-->
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"

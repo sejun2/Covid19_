@@ -40,4 +40,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:converter-jaxb:2.8.0'
+    implementation 'com.github.arcadefire:nice-spinner:1.4.4'
+    implementation 'cl.jesualex.android:stooltip:1.5'
 }

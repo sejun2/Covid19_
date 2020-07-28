@@ -18,8 +18,8 @@ import wanna.cu.covid19_.subActivity.preventionOfInfect.PreventionOfInfectActivi
 import wanna.cu.covid19_.subActivity.whatiscovid.WhatIsCovidActivity
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-
+    val sidoFragment by lazy { SidoFragment.newInstance() }
+    val sexAgeFragment by lazy { SexAgeFragment.newInstance() }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +38,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, SidoFragment.newInstance()).commit()
+            .replace(R.id.fragment_container, sidoFragment).commit()
 
 
     }
@@ -48,12 +49,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_sido -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, SidoFragment.newInstance()).commit()
+                    .replace(R.id.fragment_container, sidoFragment).commit()
                 toolbar.title = "시 도별 발생 현황"
             }
             R.id.nav_gender -> {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, SexAgeFragment.newInstance()).commit()
+                    .replace(R.id.fragment_container, sexAgeFragment).commit()
                 toolbar.title = "연령 및 성별 발생 현황"
             }
             R.id.nav_map -> Toast.makeText(this, "nav_map selected", Toast.LENGTH_LONG).show()

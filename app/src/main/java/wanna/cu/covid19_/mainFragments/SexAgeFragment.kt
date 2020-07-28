@@ -1,5 +1,6 @@
 package wanna.cu.covid19_.mainFragments
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,8 +11,12 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
+import cl.jesualex.stooltip.Position
+import cl.jesualex.stooltip.Tooltip
 import kotlinx.android.synthetic.main.fragment_sexage.*
 import kotlinx.android.synthetic.main.fragment_sido.*
+import org.angmarch.views.NiceSpinner
+import org.angmarch.views.OnSpinnerItemSelectedListener
 import wanna.cu.covid19_.R
 import wanna.cu.covid19_.sexFragmentDatas.SexAge
 import wanna.cu.covid19_.sexFragmentDatas.SexAgeContract
@@ -27,10 +32,12 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
         super.onCreate(savedInstanceState)
 
     }
-    fun clearLists(){
+
+    fun clearLists() {
         sexAges = ArrayList<SexAge>()
         gubun = ArrayList<String>()
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,11 +51,20 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
         super.onViewCreated(view, savedInstanceState)
         clearLists()
         sexAgePresenter.setSexAgesToSexAgeFragment()
+        Tooltip.on(niceSpinner_sexAgeFragment)
+            .text(R.string.tooltip_spinner)
+            .color(resources.getColor(android.R.color.black))
+            .border(Color.BLACK, 2f)
+            .clickToHide(true)
+            .corner(5)
+            .position(Position.BOTTOM)
+            .show(3000)
     }
 
     companion object {
         private var instance: SexAgeFragment? = null
         const val TAG = "SexAgeFragment 디버깅"
+
         @JvmStatic
         fun newInstance() =
             instance ?: synchronized(this) {
@@ -69,13 +85,13 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
     }
 
     fun setCnts() {
-        val tmp = spinner_sexAgeFragment.selectedItem.toString()
+        val tmp = niceSpinner_sexAgeFragment.selectedItem.toString()
         val x = getSpecificSexAge(tmp)
         if (x != null) {
-            confCaseRate_textView_sexAgeFragment.text = x.confCaseRate+"%"
-            confCase_textView_sexAgeFragment.text = x.confCase+"명"
+            confCaseRate_textView_sexAgeFragment.text = x.confCaseRate + "%"
+            confCase_textView_sexAgeFragment.text = x.confCase + "명"
             deathCnt_textView_sexAgeFragment.text = "${x.death}명"
-            deathRate_textView_sexAgeFragment.text = x.deathRate+"%"
+            deathRate_textView_sexAgeFragment.text = x.deathRate + "%"
         }
     }
 
@@ -94,25 +110,56 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
     }
 
     override fun initSpinner(tmp: List<SexAge>) {
-        Log.d(SidoFragment.TAG, "initSpinner() : ${tmp.toString()}")
         getSexAges(tmp)
-        spinner_sexAgeFragment.adapter = context?.let {
-            ArrayAdapter<String>(
-                it,
-                android.R.layout.simple_spinner_dropdown_item,
-                gubun
-            )
-        }
-        spinner_sexAgeFragment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                //Do Nothing
-            }
+        niceSpinner_sexAgeFragment.attachDataSource(gubun)
 
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        niceSpinner_sexAgeFragment.setOnSpinnerItemSelectedListener(object :
+            OnSpinnerItemSelectedListener {
+            override fun onItemSelected(
+                parent: NiceSpinner?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 setCnts()
             }
+        })
 
-        }
 
     }
 }
+/*override fun initSpinner(tmp: List<SexAge>) {
+    Log.d(SidoFragment.TAG, "initSpinner() : ${tmp.toString()}")
+    getSexAges(tmp)
+    spinner_sexAgeFragment.adapter = context?.let {
+        ArrayAdapter<String>(
+            it,
+            android.R.layout.simple_spinner_dropdown_item,
+            gubun
+        )
+    }
+    spinner_sexAgeFragment.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {
+            //Do Nothing
+        }
+
+        override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+            setCnts()
+        }
+
+    }
+
+}
+}
+fun setCnts() {
+    val tmp = spinner_sexAgeFragment.selectedItem.toString()
+    val x = getSpecificSexAge(tmp)
+    if (x != null) {
+        confCaseRate_textView_sexAgeFragment.text = x.confCaseRate+"%"
+        confCase_textView_sexAgeFragment.text = x.confCase+"명"
+        deathCnt_textView_sexAgeFragment.text = "${x.death}명"
+        deathRate_textView_sexAgeFragment.text = x.deathRate+"%"
+    }
+}
+
+*/
