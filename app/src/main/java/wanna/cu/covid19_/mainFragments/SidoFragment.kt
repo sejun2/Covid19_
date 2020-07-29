@@ -84,6 +84,8 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
         }
     }
 
+
+
     fun getSpecificSido(name: String): Sido? {
         var tmp: Sido? = null
         sidos.forEach {

@@ -5,5 +5,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tooltip_spinner">이곳에서 선택하세요</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

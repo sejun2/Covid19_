@@ -11,7 +11,7 @@
         <item
             android:id="@+id/nav_map"
             android:title="발생 지도"
-            android:visible="false"/>
+            />
     </group>
     <item android:title="서브 메뉴">
         <menu>

@@ -49,7 +49,7 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
 }
 
     override fun onFailed() {
-        TODO("Not yet implemented")
+
     }
 
 
