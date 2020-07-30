@@ -28,6 +28,7 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
     var sexAges = ArrayList<SexAge>()
     var gubun = ArrayList<String>()
     val sexAgePresenter: SexAgePresenter = SexAgePresenter.newInstance(this)
+    var tooltipOn = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -51,14 +52,17 @@ class SexAgeFragment private constructor() : Fragment(), SexAgeContract.SexFragm
         super.onViewCreated(view, savedInstanceState)
         clearLists()
         sexAgePresenter.setSexAgesToSexAgeFragment()
-        Tooltip.on(niceSpinner_sexAgeFragment)
-            .text(R.string.tooltip_spinner)
-            .color(resources.getColor(android.R.color.black))
-            .border(Color.BLACK, 2f)
-            .clickToHide(true)
-            .corner(5)
-            .position(Position.BOTTOM)
-            .show(3000)
+        if(tooltipOn == true) {
+            Tooltip.on(niceSpinner_sexAgeFragment)
+                .text(R.string.tooltip_spinner)
+                .color(resources.getColor(android.R.color.black))
+                .border(Color.BLACK, 2f)
+                .clickToHide(true)
+                .corner(5)
+                .position(Position.BOTTOM)
+                .show(3000)
+            tooltipOn=false
+        }
     }
 
     companion object {

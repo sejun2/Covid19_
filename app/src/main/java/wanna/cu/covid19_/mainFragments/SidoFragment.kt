@@ -29,6 +29,7 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
     }
     var sidos = ArrayList<Sido>()
     var cities = ArrayList<String>()
+    var tooltipOn = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,16 +52,19 @@ class SidoFragment private constructor() : Fragment(), DataContract.FragmentView
         super.onViewCreated(view, savedInstanceState)
         clearLists()
         dataPresenter.getSidosFromSidoModel()
-        Tooltip.on(niceSpinner_sidoFragment)
-            .text(R.string.tooltip_spinner)
-            .color(resources.getColor(android.R.color.black))
-            .border(Color.BLACK, 2f)
-            .clickToHide(true)
-            .corner(5)
-            .position(Position.BOTTOM)
-            .show(3000)
 
-}
+        if (tooltipOn == true) {
+            Tooltip.on(niceSpinner_sidoFragment)
+                .text(R.string.tooltip_spinner)
+                .color(resources.getColor(android.R.color.black))
+                .border(Color.BLACK, 2f)
+                .clickToHide(true)
+                .corner(5)
+                .position(Position.BOTTOM)
+                .show(3000)
+            tooltipOn = false
+        }
+    }
 
     companion object {
         const val TAG = "SidoFragment 디버깅"
