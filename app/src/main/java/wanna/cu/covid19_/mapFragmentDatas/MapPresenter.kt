@@ -34,6 +34,7 @@ class MapPresenter private constructor(val view: MapContract.MapView, val contex
     }
     fun setCircleToView(){
         view.setCircleToMap(geoMapDatas)
+        view.setMarkerToMap(geoMapDatas)
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getMapDataFromModel() {

@@ -6,5 +6,6 @@ interface MapContract {
     }
     interface MapView{
        fun  setCircleToMap(list : List<MapData>)
+        fun setMarkerToMap(list: List<MapData>)
 }
 }

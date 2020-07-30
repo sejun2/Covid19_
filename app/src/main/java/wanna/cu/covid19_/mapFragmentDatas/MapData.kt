@@ -23,24 +23,22 @@ data class MapDataItems(
 )
 
 data class MapData(
-    @SerializedName("confCase")
-    val confCase: String,
-    @SerializedName("confCaseRate")
-    val confCaseRate: String,
     @SerializedName("createDt")
-    val createDt: String,
-    @SerializedName("criticalRate")
-    val criticlaRate: String,
-    @SerializedName("death")
-    val death: Int,
-    @SerializedName("deathRate")
-    val deathRate: String,
+    val createDt:String,
+    @SerializedName("deathCnt")
+    val deathCnt:Int,
+    @SerializedName("defCnt")
+    val defCnt:Int,
     @SerializedName("gubun")
-    val gubun: String,
-    @SerializedName("updateDt")
-    val updateDt: String,
-    @SerializedName("seq")
-    val seq: Int,
+    val gubun:String,
+    @SerializedName("incDec")
+    val incDec:Int,
+    @SerializedName("isolClearCnt")
+    val isolClearCnt:Int,
+    @SerializedName("isolIngCnt")
+    val isolIngCnt:Int,
+    @SerializedName("stdDay")
+    val stdDay:String,
     var longitude:Double? = null,
     var latitude:Double? = null
 )

@@ -18,9 +18,7 @@ import cl.jesualex.stooltip.Tooltip
 import kotlinx.android.synthetic.main.fragment_map.*
 import kotlinx.android.synthetic.main.fragment_sexage.*
 import kotlinx.android.synthetic.main.fragment_sido.*
-import net.daum.mf.map.api.MapCircle
-import net.daum.mf.map.api.MapPoint
-import net.daum.mf.map.api.MapView
+import net.daum.mf.map.api.*
 import org.angmarch.views.NiceSpinner
 import org.angmarch.views.OnSpinnerItemSelectedListener
 import wanna.cu.covid19_.R
@@ -81,13 +79,31 @@ class MapFragment private constructor() : Fragment(), MapContract.MapView {
             }
     }
 
+    override fun setMarkerToMap(list: List<MapData>) {
+        for(i in list){
+            if(i.longitude != null) {
+                var customMarker = MapPOIItem()
+                customMarker.itemName = """
+                    ${i.gubun}
+                    확진자 : ${i.defCnt}
+                    격리중 : ${i.isolIngCnt}
+                    사망 : ${i.deathCnt}""".trimIndent()
+                customMarker.markerType= MapPOIItem.MarkerType.CustomImage
+                customMarker.customImageResourceId = R.drawable.germ
+                customMarker.mapPoint = MapPoint.mapPointWithGeoCoord(i.latitude!!, i.longitude!!)
+                customMarker.setCustomImageAnchor(0.5f, 1.0f)
+
+                mapView.addPOIItem(customMarker)
+            }
+        }
+    }
 
     override fun setCircleToMap(list: List<MapData>) {
         for (i in list) {
             if (i.longitude != null) {
                 var tmpCircle = MapCircle(
                     MapPoint.mapPointWithGeoCoord(i.latitude!!, i.longitude!!),
-                    13000,
+                    20000,
                     Color.argb(128, 0, 255, 0),
                     Color.argb(128, 255, 0, 0)
                 )
