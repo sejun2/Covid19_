@@ -8,7 +8,7 @@
 
 #### 사용법
 
-![Alt text](drawer.jpg = 250)
+![Alt text](drawer.jpg =250x)
 
 
 
