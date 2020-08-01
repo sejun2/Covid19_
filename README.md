@@ -8,14 +8,16 @@
 
 ## 사용법
 ### 1. 메뉴를 선택
-![메뉴](drawer.jpg){: width="50%" height="50%}
+![메뉴](drawer.jpg)
 ### 2. 시도별 감염현황
-![시도](sido.jpg){: width="220"}
+#### 스피너를 선택하여 해당 시 도의 정보를 확인합니다.
+![시도](sido.jpg)
 ### 3. 연령 및 성별 감염현황
-![연령 성](sexage.jpg){: width="220"}
+#### 스피너를 선택하여 해당 연령 및 성별 정보를 확인합니다.
+![연령 성](sexage.jpg)
 ### 4. 감염현황 지도로 보기
-![지도](map.jpg){: width="220"}
+![지도](map.jpg)
 ### 5. 코로나 정보확인
-![정보](info.jpg){: width="220"}
+![정보](info.jpg)
 ### apk 다운로드 : [앱 다운로드](https://drive.google.com/file/d/1YRZrlij5qceGwtip9ykL9CpZu6vbNkmL/view?usp=sharing, "앱 다운로드")
 
