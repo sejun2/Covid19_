@@ -22,6 +22,7 @@ import net.daum.mf.map.api.*
 import org.angmarch.views.NiceSpinner
 import org.angmarch.views.OnSpinnerItemSelectedListener
 import wanna.cu.covid19_.R
+import wanna.cu.covid19_.mapFragmentDatas.CustomCalloutBalloonAdapter
 import wanna.cu.covid19_.mapFragmentDatas.MapContract
 import wanna.cu.covid19_.mapFragmentDatas.MapData
 import wanna.cu.covid19_.mapFragmentDatas.MapPresenter
@@ -59,7 +60,7 @@ class MapFragment private constructor() : Fragment(), MapContract.MapView {
 
         mapPresenter.getMapDataFromModel()
         mapView.setZoomLevel(9, true);
-
+        mapView.setCalloutBalloonAdapter(CustomCalloutBalloonAdapter(this.context))
     }
 
     override fun onDetach() {
@@ -87,7 +88,9 @@ class MapFragment private constructor() : Fragment(), MapContract.MapView {
                     ${i.gubun}
                     확진자 : ${i.defCnt}
                     격리중 : ${i.isolIngCnt}
-                    사망 : ${i.deathCnt}""".trimIndent()
+                    격리해제 : ${i.isolClearCnt}
+                    사망자 : ${i.deathCnt}
+                """.trimIndent()
                 customMarker.markerType= MapPOIItem.MarkerType.CustomImage
                 customMarker.customImageResourceId = R.drawable.germ
                 customMarker.mapPoint = MapPoint.mapPointWithGeoCoord(i.latitude!!, i.longitude!!)

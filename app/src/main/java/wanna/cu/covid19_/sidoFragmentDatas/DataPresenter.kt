@@ -3,6 +3,8 @@ package wanna.cu.covid19_.sidoFragmentDatas
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import java.lang.StringBuilder
+import java.time.LocalDate
 
 
 class DataPresenter private constructor(val view: DataContract.FragmentView) : DataContract.Presenter, SidoModel.OnDataFetchedListener{
@@ -32,7 +34,7 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getSidosFromSidoModel() {
-        sidoModel.doRetrofit()
+        sidoModel.doRetrofit(getToday())
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -47,7 +49,19 @@ class DataPresenter private constructor(val view: DataContract.FragmentView) : D
         Log.d(TAG, "sidos = ${sidos}")
         setSidosToSidoFragment()
 }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getToday(): String {
+        var now = LocalDate.now()
+        val tmp = now.toString().split('-')
 
+        val sb = StringBuilder()
+        tmp.forEach() {
+            sb.append(it)
+        }
+
+        Log.d(DataPresenter.TAG, sb.toString())
+        return sb.toString()
+    }
     override fun onFailed() {
 
     }

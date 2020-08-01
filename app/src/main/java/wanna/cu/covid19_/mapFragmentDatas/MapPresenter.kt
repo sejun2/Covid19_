@@ -10,6 +10,8 @@ import androidx.annotation.RequiresApi
 import wanna.cu.covid19_.mainFragments.MapFragment
 import wanna.cu.covid19_.sexFragmentDatas.SexAgeContract
 import wanna.cu.covid19_.sexFragmentDatas.SexAgePresenter
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import kotlin.system.measureTimeMillis
 
 
@@ -38,7 +40,7 @@ class MapPresenter private constructor(val view: MapContract.MapView, val contex
     }
     @RequiresApi(Build.VERSION_CODES.O)
     override fun getMapDataFromModel() {
-        mapModel.doMapDataRetrofit()
+        mapModel.doMapDataRetrofit(getToday())
     }
 
     override fun onFetched() {
@@ -53,6 +55,19 @@ class MapPresenter private constructor(val view: MapContract.MapView, val contex
         Log.d(TAG, "onFailed")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun getToday(): String {
+        val now = LocalDate.now()
+
+        val resultformat = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
+
+        Log.d("MapModel", resultformat)
+
+        Log.d("MapModel", now.minusDays(1).toString())
+
+
+        return resultformat
+    }
     inner class GeoAsync : AsyncTask<Unit, Unit, Unit>(){
         override fun doInBackground(vararg p0: Unit?) {
             val time = measureTimeMillis {
@@ -77,4 +92,5 @@ class MapPresenter private constructor(val view: MapContract.MapView, val contex
 
 
     }
+
 }

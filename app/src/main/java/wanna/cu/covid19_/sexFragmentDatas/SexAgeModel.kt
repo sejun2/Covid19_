@@ -8,14 +8,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import wanna.cu.covid19_.mapFragmentDatas.MapModel
 import wanna.cu.covid19_.sidoFragmentDatas.*
 import java.lang.StringBuilder
 import java.net.URLDecoder
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAgeDataFetchedListener){
     var sexAges = ArrayList<SexAge>()
-
+    var count = 0
     companion object {
         const val TAG = "SexAgeModel 디버깅"
         private var instance: SexAgeModel? = null
@@ -30,7 +32,7 @@ class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAge
 
     }
     @RequiresApi(Build.VERSION_CODES.O)
-    fun doSexAgeRetrofit(){
+    fun doSexAgeRetrofit(day : String){
         val privateKey = URLDecoder.decode(
             "EucTlJ77vKNrNliw9L6V8tLn8gQuFNogCmvh%2FlUQ7c5Rnstk0AL%2BTFMIrGFYEwbIMJE9Nw6%2BRU09ydd40wfKeg%3D%3D",
             "utf-8"
@@ -47,13 +49,16 @@ class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAge
             type = "json",
             pageNo = 1,
             numOfRows = 10,
-            startCreateDt = getToday(),
-            endCreateDt = getToday()
+            startCreateDt = day,
+            endCreateDt = day
         )
         call.enqueue(object : Callback<SexAgeTop> {
             override fun onFailure(call: Call<SexAgeTop>, t: Throwable) {
                 Log.d(TAG, "onFailure called")
                 onSexAgeDataFetchedListener.onFailed()
+                if(count++ == 0) {
+                    doSexAgeRetrofit(getTodayMinusOne())
+                }
             }
 
             override fun onResponse(
@@ -67,18 +72,17 @@ class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAge
 
         })
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
-    fun getToday(): String {
-        var now = LocalDate.now()
-        val tmp = now.toString().split('-')
+    fun getTodayMinusOne(): String {
+        Log.d(MapModel.TAG, "getTodayMinusOne()")
+        var now = LocalDate.now().minusDays(1)
 
-        val sb = StringBuilder()
-        tmp.forEach() {
-            sb.append(it)
-        }
+        var resultformat = now.format(DateTimeFormatter.ofPattern("yyyyMMdd"))
 
-        Log.d(DataPresenter.TAG, sb.toString())
-        return sb.toString()
+        Log.d(MapModel.TAG, resultformat)
+
+        return resultformat
     }
     interface OnSexAgeDataFetchedListener{
         fun onFetched()
