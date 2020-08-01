@@ -8,7 +8,7 @@
 
 #### 사용법
 
-![Alt text](drawer.jpg =250x)
+<img src="drawer.jpg"  width="250">
 
 
 
