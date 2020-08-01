@@ -64,9 +64,9 @@ class MapModel private constructor(val onMapDataFetchedListener: OnMapDataFetche
             override fun onFailure(call: Call<MapDataTop>, t: Throwable) {
                 Log.d(TAG, "onFailure called")
                 onMapDataFetchedListener.onFailed()
-                if(count++ == 0) {
+
                     doMapDataRetrofit(getTodayMinusOne())
-                }
+
             }
 
             override fun onResponse(

@@ -67,9 +67,9 @@ var count = 0
             override fun onFailure(call: Call<Top>, t: Throwable) {
                 Log.d(TAG, "onFailure called")
                 onDataFetchedListener.onFailed()
-                if(count++ == 0){
+
                     doRetrofit(getTodayMinusOne())
-                }
+
             }
 
             override fun onResponse(

@@ -56,9 +56,9 @@ class SexAgeModel private constructor(val onSexAgeDataFetchedListener : OnSexAge
             override fun onFailure(call: Call<SexAgeTop>, t: Throwable) {
                 Log.d(TAG, "onFailure called")
                 onSexAgeDataFetchedListener.onFailed()
-                if(count++ == 0) {
+
                     doSexAgeRetrofit(getTodayMinusOne())
-                }
+
             }
 
             override fun onResponse(
