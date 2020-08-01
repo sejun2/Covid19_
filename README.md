@@ -7,15 +7,15 @@
 ------------------------------------------------------------------------------------------
 
 ## 사용법
-1. 메뉴를 선택
+### 1. 메뉴를 선택
 <img src="drawer.jpg"  width="250">
-2. 시도별 감염현황
+### 2. 시도별 감염현황
 <img src="sido.jpg"  width="250">
-3. 연령 및 성별 감염현황
+### 3. 연령 및 성별 감염현황
 <img src="sexage.jpg"  width="250">
-4. 감염현황 지도로 보기
+### 4. 감염현황 지도로 보기
 <img src="map.jpg"  width="250">
-5. 코로나 정보확인
+### 5. 코로나 정보확인
 <img src="info.jpg"  width="250">
-apk 다운로드 : [앱 다운로드](https://drive.google.com/file/d/1YRZrlij5qceGwtip9ykL9CpZu6vbNkmL/view?usp=sharing, "앱 다운로드")
+### apk 다운로드 : [앱 다운로드](https://drive.google.com/file/d/1YRZrlij5qceGwtip9ykL9CpZu6vbNkmL/view?usp=sharing, "앱 다운로드")
 
